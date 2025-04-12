@@ -17,25 +17,28 @@ const orderSchema = new mongoose.Schema({
         required: true,
         min: 1,
     },
-    salePrice: {
-        type: Number,
-        required: true,
-        min: 0,
+    type:{
+        type: String,
+        default: 'outgoing',
     },
-    orderDate:{
-        type: Date,
+    totalPrice: {
+        type: Number,
         required: true,
     },
     status: {
         type: String,
         enum: ['Pending', 'Shipping', 'Delivered', 'Canceled'],
-
+        default: "Pending", // Initial status is pending
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    orderDate: {
+        type: Date,
+        default: Date.now,
+    },
 }, {timestamps: true});
 
 module.exports = mongoose.model('Order', orderSchema);
